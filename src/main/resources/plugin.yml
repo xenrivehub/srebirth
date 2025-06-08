@@ -1,0 +1,7 @@
+name: SRebirth
+version: '1.0'
+main: com.spearforge.sRebirth.SRebirth
+api-version: '1.18'
+authors: [ xenrive ]
+description: Island Advertise plugin for Spear Network
+website: www.spearnw.com
