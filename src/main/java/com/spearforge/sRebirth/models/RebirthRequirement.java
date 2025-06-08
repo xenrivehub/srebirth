@@ -1,4 +1,13 @@
 package com.spearforge.sRebirth.models;
 
-public class Rebirth {
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+@Data
+@AllArgsConstructor
+public class RebirthRequirement {
+
+    private double moneyReq;
+    private double pointsReq;
+
 }

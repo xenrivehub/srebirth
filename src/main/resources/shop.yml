@@ -1,0 +1,33 @@
+shop:
+  iron-golem-spawner:
+    material: SPAWNER
+    slot: 10
+    glow: true
+    price: 2 # Rebirth Level
+    display-name: "&6Demir Golem Spawner"
+    lore:
+      - "&7Demir Golem Spawner"
+    commands:
+      - "give %player% diamond_block 1"
+  farm-modifier:
+    material: WHEAT
+    slot: 11
+    glow: true
+    price: 2
+    display-name: "&6Tarım Satışı x1.20 TL"
+    lore:
+      - "&7Market ve çiftçi üzerinden yapacağınız"
+      - "&7tarım ürünü satışlarında normal fiyatın"
+      - "&7x1.20 katı TL kazanırsınız."
+    commands:
+      - "give %player% wheat 1"
+  farmer-remove-tax:
+    material: DIAMOND
+    slot: 12
+    glow: true
+    display-name: "&6Çiftçi Vergisi Kaldırma"
+    lore:
+      - "&7Çiftçi üzerinden yapacağınız satışlarda"
+      - "&7ödeyeceğiniz %10 vergi oranını kaldırır."
+    commands:
+      - "give %player% diamond 10"

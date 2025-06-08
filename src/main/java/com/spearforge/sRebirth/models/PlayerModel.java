@@ -8,11 +8,12 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Player {
+public class PlayerModel {
 
     private String uuid;
     private String playerName;
     private double rebirthPoints;
     private int rebirthLevel;
+    private int levelSpent;
 
 }

@@ -1,0 +1,21 @@
+rebirth-levels:
+  1:
+    requirements:
+      money: 100000
+      points: 5000
+  2:
+    requirements:
+      money: 200000
+      points: 10000
+  3:
+    requirements:
+      money: 300000
+      points: 15000
+  4:
+    requirements:
+      money: 400000
+      points: 20000
+  5:
+    requirements:
+      money: 500000
+      points: 25000

@@ -1,0 +1,96 @@
+fill-item: BLACK_STAINED_GLASS_PANE
+last-line: "&cFiyat: %price% Rebirth Leveli"
+
+titles:
+  main-menu-title: "&8Rebirth Menüsü"
+  shop-title: "&8Rebirth Mağazası"
+  panel-title: "&8Rebirth Teslimat Paneli"
+  material-worth-title: "&8Rebirth Puanı Veren Materyaller"
+
+
+panel-close-button:
+  material: BARRIER
+  slot: 53 # don't change this slot, it's used in listener. If you change it, there will be issues.
+  glow: true
+  display-name: "&cPaneli Kapat"
+  lore:
+    - "&7Menüyü kapattıktan sonra materyal"
+    - "&7değerlerinize göre puanınız güncellenecektir."
+    - ""
+    - "&7Her bir materyalin size ne kadar puan"
+    - "&7kazandırdığını bu menüyü kapattıktan sonra"
+    - "&7sohbet ekranında görüntüleyebilirsiniz."
+    - ""
+    - "&cMenüyü kapatmak için tıklayın."
+
+items:
+  close-button:
+    material: BARRIER
+    slot: 44
+    glow: false
+    display-name: "&cKapat"
+    lore:
+      - "&7Bu menüyü kapatmak için tıklayın."
+  rebirth-info:
+    material: GOLD_BLOCK
+    slot: 31
+    glow: true
+    display-name: "&6Rebirth Bilgi"
+    lore:
+      - "&7Sunucumuzda yer alan rebirth sistemi"
+      - "&7sayesinde, Rebirth sistemi için"
+      - "&7değerli kılınmış materyal ya da blokları"
+      - "&7Rebirth Teslimat paneline teslim ederek"
+      - "&7rebirth puanı kazanabilirsiniz."
+      - ""
+      - "&7Rebirth puanlarınızı ise Rebirth Mağazası"
+      - "&7üzerinden kalıcı yükseltmeler veya"
+      - "&7eşya satın almak için kullanabilirsiniz."
+      - ""
+      - "&7Rebirth puanı veren materyal ya da blokları"
+      - "&7görüntülemek için bu butona tıklayın."
+  rebirth-panel:
+    material: CHEST
+    slot: 29
+    glow: false
+    display-name: "&6Rebirth Teslimat Paneli"
+    lore:
+      - "&7Bu menüye Rebirth Puanı kazandıran"
+      - "&7materyal ya da bloklarınızı teslim"
+      - "&7ederek, Rebirth Puanı kazanabilirsiniz."
+      - ""
+      - "&7Rebirth puanlarınızı Rebirth Mağazası"
+      - "&7üzerinden harcayabilirsiniz."
+      - ""
+      - "&7Rebirth Puanı veren materyal ya da blokları"
+      - "&7görüntülemek için &6&lRebirth Bilgi &7butonuna tıklayın."
+  rebirth-shop:
+    material: CHEST_MINECART
+    slot: 33
+    glow: true
+    display-name: "&6Rebirth Mağazası"
+    lore:
+      - "&7Rebirth Puanlarınızı harcayarak"
+      - "&7kalıcı yükseltmeler veya değerli eşyalar"
+      - "&7satın alabileceğiniz özel mağaza."
+      - ""
+      - "&7Rebirth Puanı kazanmak için Rebirth"
+      - "&7Teslimat Paneline materyal ya da blok"
+      - "&7teslim edebilirsiniz."
+      - ""
+      - "&7Rebirth Teslimat Paneline erişmek için"
+      - "&6&lRebirth Teslimat Paneli &7butonuna tıklayın."
+  rebirth-upgrade:
+    material: ENCHANTED_BOOK
+    slot: 13
+    glow: true
+    display-name: "&6Rebirth Yükseltmesi"
+    lore:
+      - "&7Mevcut Rebirth Puanın: &6%rebirth_points%"
+      - "&7Mevcut Rebirth Seviyen: &6%rebirth_level%"
+      - ""
+      - "&7Rebirth seviyeni yükseltmek için gerekenler;"
+      - "&7- Rebirth Puanı: &6%rebirth_points_required%"
+      - "&7- Para: &6%rebirth_money_required%"
+      - ""
+      - "&7Rebirth seviyeni yükseltmek için tıklayın."
