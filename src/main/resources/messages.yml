@@ -7,6 +7,10 @@ messages:
   buy-success: "%prefix%&a%item% &7öğesini &a%price% &7Rebirth Leveli karşılığı başarıyla satın aldınız!"
   panel-closed: "%prefix%&cRebirth Teslimat Paneli kapatıldı. Materyal değerleriniz güncellendi. Eklenen toplam Rebirth Puanı: &a%totalWorth% &7Rebirth Puanı"
   per-item-worth: "%prefix%&7%item% &7öğesi size &a%worth% &7Rebirth Puanı kazandırdı."
+  rebirth-title: "&a&lREBIRTH" # for title msg which sends to everyone
+  rebirth-subtitle: "&6%player% &fadlı oyuncumuz &6Rebirth Seviyesini &fyükseltti! Yeni seviye: &6%level%" # for subtitle msg which sends to everyone
+  rebirth-success: "%prefix%&aRebirth işleminiz başarıyla tamamlandı! Yeni Rebirth Seviyeniz: &6%level%"
+  rebirth-failed: "&cYeterli paranız veya rebirth puanınız yok!"
 admin:
   help:
     - "&7/rebirth &8» &aRebirth Teslimat Panelini açar."

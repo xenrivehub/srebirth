@@ -78,8 +78,8 @@ items:
       - "&7Teslimat Paneline materyal ya da blok"
       - "&7teslim edebilirsiniz."
       - ""
-      - "&7Rebirth Teslimat Paneline erişmek için"
-      - "&6&lRebirth Teslimat Paneli &7butonuna tıklayın."
+      - "&cHarcanabilecek Rebirth Leveli: %6%srebirth_available_level%"
+      - "&cHarcanmış Level: &6%srebirth_level_spent%"
   rebirth-upgrade:
     material: ENCHANTED_BOOK
     slot: 13

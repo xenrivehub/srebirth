@@ -4,6 +4,7 @@ import com.spearforge.sRebirth.commands.AdminCommand;
 import com.spearforge.sRebirth.commands.MainCommand;
 import com.spearforge.sRebirth.listeners.*;
 import com.spearforge.sRebirth.managers.ConfigManager;
+import com.spearforge.sRebirth.managers.PlayerManager;
 import com.spearforge.sRebirth.managers.RequirementsManager;
 import com.spearforge.sRebirth.managers.ShopManager;
 import com.spearforge.sRebirth.models.PlayerModel;
@@ -42,6 +43,8 @@ public final class SRebirth extends JavaPlugin {
     private static HashMap<String, ShopItem> shopItems = new HashMap<>();
     @Getter
     private static final HashMap<Material, Double> worthMap = new HashMap<>();
+    @Getter
+    private static PlayerManager playerManager = new PlayerManager();
 
     @Override
     public void onEnable() {
@@ -76,7 +79,9 @@ public final class SRebirth extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
+        for (PlayerModel model : playerData.values()){
+            playerManager.savePlayerData(model);
+        }
     }
 
     private void setupCommands() {
@@ -90,6 +95,7 @@ public final class SRebirth extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new PlayerQuitListener(), this);
         getServer().getPluginManager().registerEvents(new ShopListener(), this);
         getServer().getPluginManager().registerEvents(new PanelListener(), this);
+        getServer().getPluginManager().registerEvents(new WorthMenuListener(), this);
     }
 
     private boolean setupEconomy() {

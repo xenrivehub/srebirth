@@ -2,9 +2,12 @@ package com.spearforge.sRebirth.managers;
 
 import com.spearforge.sRebirth.SRebirth;
 import com.spearforge.sRebirth.models.PlayerModel;
+import com.spearforge.sRebirth.models.RebirthRequirement;
 import com.spearforge.sRebirth.models.ShopItem;
 import com.spearforge.sRebirth.utils.Text;
+import org.apache.commons.lang.WordUtils;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.ConfigurationSection;
@@ -19,6 +22,7 @@ import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
@@ -143,6 +147,67 @@ public class GUIManager {
         return null;
     }
 
+    public void openWorthGUI(Player player, int page) {
+        FileConfiguration config = SRebirth.getGuiConfig().getConfig();
+        FileConfiguration worthConfig = SRebirth.getWorthConfig().getConfig(); // worth.yml yüklü config
+        ConfigurationSection worthSection = worthConfig.getConfigurationSection("worth");
+
+        if (worthSection == null) {
+            player.sendMessage(ChatColor.RED + "Hiçbir değer yapılandırılmamış.");
+            return;
+        }
+
+        List<String> keys = new ArrayList<>(worthSection.getKeys(false));
+        int itemsPerPage = 45;
+        int totalPages = (int) Math.ceil(keys.size() / (double) itemsPerPage);
+
+        if (page < 1) page = 1;
+        if (page > totalPages) page = totalPages;
+
+        Inventory worthGUI = Bukkit.createInventory(player, 54,
+                ChatColor.translateAlternateColorCodes('&',
+                        config.getString("titles.material-worth-title", "Material Worth") + " - §7[Sayfa " + page + "/" + totalPages + "]"));
+
+        int startIndex = (page - 1) * itemsPerPage;
+        int endIndex = Math.min(startIndex + itemsPerPage, keys.size());
+
+        for (int i = startIndex; i < endIndex; i++) {
+            String key = keys.get(i);
+            Material material = Material.matchMaterial(key.toUpperCase());
+            if (material == null) continue;
+
+            double worth = worthSection.getDouble(key);
+            ItemStack item = new ItemStack(material);
+            ItemMeta meta = item.getItemMeta();
+            if (meta != null) {
+                meta.setDisplayName(ChatColor.YELLOW + key.replace("_", " "));
+                meta.setLore(Collections.singletonList(ChatColor.GRAY + "Puan: " + worth));
+                item.setItemMeta(meta);
+            }
+
+            worthGUI.setItem(i - startIndex, item);
+        }
+
+        // Sayfa geçiş butonları (isteğe bağlı)
+        if (page > 1) {
+            ItemStack prev = new ItemStack(Material.ARROW);
+            ItemMeta meta = prev.getItemMeta();
+            meta.setDisplayName(ChatColor.GREEN + "Önceki Sayfa");
+            prev.setItemMeta(meta);
+            worthGUI.setItem(45, prev);
+        }
+
+        if (page < totalPages) {
+            ItemStack next = new ItemStack(Material.ARROW);
+            ItemMeta meta = next.getItemMeta();
+            meta.setDisplayName(ChatColor.GREEN + "Sonraki Sayfa");
+            next.setItemMeta(meta);
+            worthGUI.setItem(53, next);
+        }
+
+        player.openInventory(worthGUI);
+    }
+
     private void fillItem(Inventory inventory){
         for (int i=0; i<inventory.getSize(); i++){
             if (inventory.getItem(i) == null || inventory.getItem(i).getType() == Material.AIR){
@@ -154,10 +219,22 @@ public class GUIManager {
     public static String parsePlaceholders(Player player, String text) {
         PlayerModel model = SRebirth.getPlayerData().get(player.getUniqueId());
 
+        String points = String.format(Locale.US, "%.1f", model.getRebirthPoints());
+        RebirthRequirement nextReq = RequirementsManager.getRequirement(model.getRebirthLevel() + 1);
+
+        String nextPoints = (nextReq != null)
+                ? String.valueOf(nextReq.getPointsReq())
+                : "En yüksek seviyedesin";
+
+        String nextMoney = (nextReq != null)
+                ? String.valueOf(nextReq.getMoneyReq())
+                : "En yüksek seviyedesin";
         return text
-                .replace("%srebirth_points%", String.valueOf(model.getRebirthPoints()))
+                .replace("%srebirth_points%", points)
                 .replace("%srebirth_level%", String.valueOf(model.getRebirthLevel()))
-                .replace("%srebirth_next_level_points%", String.valueOf(RequirementsManager.getRequirement(model.getRebirthLevel() + 1).getPointsReq()))
-                .replace("%srebirth_next_level_money%", String.valueOf(RequirementsManager.getRequirement(model.getRebirthLevel() + 1).getMoneyReq()));
+                .replace("%srebirth_next_level_points%", nextPoints)
+                .replace("%srebirth_next_level_money%", nextMoney)
+                .replace("%srebirth_level_spent%", String.valueOf(model.getLevelSpent()))
+                .replace("%srebirth_available_level%", String.valueOf(model.getRebirthLevel() - model.getLevelSpent()));
     }
 }

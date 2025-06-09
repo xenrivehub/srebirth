@@ -38,9 +38,12 @@ public class MainMenuListener implements Listener {
 
             if (itemId == null) return;
 
-            itemId = itemId.toLowerCase();
-            if (itemId.equalsIgnoreCase("rebirth-info")) return;
             GUIManager guiManager = new GUIManager();
+            itemId = itemId.toLowerCase();
+            if (itemId.equalsIgnoreCase("rebirth-info")) {
+                player.closeInventory();
+                guiManager.openWorthGUI(player, 1);
+            }
             if (itemId.equalsIgnoreCase("rebirth-panel")) {
                 player.closeInventory();
                 guiManager.openRebirthPanel(player);
@@ -58,13 +61,22 @@ public class MainMenuListener implements Listener {
                     playerModel.setRebirthLevel(playerModel.getRebirthLevel() + 1);
                     playerModel.setRebirthPoints(playerModel.getRebirthPoints() - requirement.getPointsReq());
                     SRebirth.getEcon().withdrawPlayer(player, requirement.getMoneyReq());
-                    player.sendMessage(Text.color("&aRebirth başarıyla yükseltildi! Yeni seviye: " + playerModel.getRebirthLevel())
+                    player.sendMessage(Text.color(SRebirth.getMessagesConfig().getString("messages.rebirth-success", "&aRebirth işlemi başarılı! Yeni seviye: &6%level%").replace("%level%", String.valueOf(playerModel.getRebirthLevel())))
                             .replace("%prefix%", SRebirth.getMessagesConfig().getString("messages.prefix")));
                     player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1.0f, 1.0f);
                     spawnFirework(player);
-                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "titlemsg all &a&lREBIRTH\n&6" + player.getName() + " &fadlı oyuncumuz &6Rebirth Seviyesini &fyükseltti! Yeni seviye: &&" + playerModel.getRebirthLevel());
-                } else {
-                    player.sendMessage(Text.color("&cYeterli paranız veya rebirth puanınız yok!")
+                    String titleMsgTitle = ChatColor.translateAlternateColorCodes('&',
+                            SRebirth.getMessagesConfig().getString("messages.rebirth-title", "&a&lREBIRTH"));
+
+                    String subtitle = ChatColor.translateAlternateColorCodes('&',
+                            SRebirth.getMessagesConfig().getString("messages.rebirth-subtitle", "&6%player% &fadlı oyuncumuz &6Rebirth Seviyesini &fyükseltti! Yeni seviye: &6%level%")
+                                    .replace("%player%", player.getName())
+                                    .replace("%level%", String.valueOf(playerModel.getRebirthLevel()))
+                    );
+                    for (Player online : Bukkit.getOnlinePlayers()) {
+                        online.sendTitle(titleMsgTitle, subtitle, 10, 60, 10); // fadeIn, stay, fadeOut tick cinsinden
+                    }} else {
+                    player.sendMessage(Text.color(SRebirth.getMessagesConfig().getString("messages.rebirth-failed"))
                             .replace("%prefix%", SRebirth.getMessagesConfig().getString("messages.prefix")));
                 }
             }

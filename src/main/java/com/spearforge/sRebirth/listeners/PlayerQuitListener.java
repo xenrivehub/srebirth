@@ -13,8 +13,7 @@ public class PlayerQuitListener implements Listener {
     public void onPlayerQuit(PlayerQuitEvent e){
         Player player = e.getPlayer();
         // Save player data when they quit
-        PlayerManager playerManager = new PlayerManager();
-        playerManager.savePlayerData(player);
+        SRebirth.getPlayerManager().savePlayerData(SRebirth.getPlayerData().get(player.getUniqueId()));
         SRebirth.getPlayerData().remove(player.getUniqueId());
     }
 

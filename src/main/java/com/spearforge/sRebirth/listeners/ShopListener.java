@@ -40,7 +40,6 @@ public class ShopListener implements Listener {
                     .replace("%prefix%", SRebirth.getMessagesConfig().getString("messages.prefix")));
             return;
         }
-        PlayerManager playerManager = new PlayerManager();
         PlayerModel playerModel = SRebirth.getPlayerData().get(player.getUniqueId());
         int currentRebirthLevel = playerModel.getRebirthLevel() - playerModel.getLevelSpent();
         if (currentRebirthLevel >= shopItem.getPrice()){
@@ -55,7 +54,7 @@ public class ShopListener implements Listener {
                     .replace("%prefix%", SRebirth.getMessagesConfig().getString("messages.prefix")));
             player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1.0f, 1.0f);
             player.closeInventory();
-            playerManager.savePlayerData(player);
+            SRebirth.getPlayerManager().savePlayerData(playerModel);
         } else {
             player.sendMessage(Text.color(SRebirth.getMessagesConfig().getString("messages.not-enough-rebirths"))
                     .replace("%price%", String.valueOf(shopItem.getPrice()))
